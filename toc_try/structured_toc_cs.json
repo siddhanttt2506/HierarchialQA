@@ -1,0 +1,752 @@
+[
+    [
+        1,
+        "Cover",
+        1
+    ],
+    [
+        1,
+        "Half-title",
+        3
+    ],
+    [
+        1,
+        "Title",
+        5
+    ],
+    [
+        1,
+        "Copyright",
+        6
+    ],
+    [
+        1,
+        "Contents",
+        7
+    ],
+    [
+        1,
+        "Foreword to the first edition",
+        11
+    ],
+    [
+        1,
+        "Preface to the second edition",
+        13
+    ],
+    [
+        2,
+        "Our motivation for (re)writing this book",
+        13
+    ],
+    [
+        2,
+        "What’s new and what’s gone",
+        13
+    ],
+    [
+        2,
+        "The interdependence of chapters and prerequisites",
+        14
+    ],
+    [
+        1,
+        "Acknowledgements",
+        15
+    ],
+    [
+        2,
+        "Added for second edition",
+        15
+    ],
+    [
+        1,
+        "1 Propositional logic",
+        17
+    ],
+    [
+        2,
+        "1.1 Declarative sentences",
+        18
+    ],
+    [
+        2,
+        "1.2 Natural deduction",
+        21
+    ],
+    [
+        3,
+        "1.2.1 Rules for natural deduction",
+        22
+    ],
+    [
+        3,
+        "1.2.2 Derived rules",
+        39
+    ],
+    [
+        3,
+        "1.2.3 Natural deduction in summary",
+        42
+    ],
+    [
+        3,
+        "1.2.4 Provable equivalence",
+        45
+    ],
+    [
+        3,
+        "1.2.5 An aside: proof by contradiction",
+        45
+    ],
+    [
+        2,
+        "1.3 Propositional logic as a formal language",
+        47
+    ],
+    [
+        2,
+        "1.4 Semantics of propositional logic",
+        52
+    ],
+    [
+        3,
+        "1.4.1 The meaning of logical connectives",
+        52
+    ],
+    [
+        3,
+        "1.4.2 Mathematical induction",
+        56
+    ],
+    [
+        3,
+        "1.4.3 Soundness of propositional logic",
+        61
+    ],
+    [
+        3,
+        "1.4.4 Completeness of propositional logic",
+        65
+    ],
+    [
+        2,
+        "1.5 Normal forms",
+        69
+    ],
+    [
+        3,
+        "1.5.1 Semantic equivalence, satisfiability and validity",
+        70
+    ],
+    [
+        3,
+        "1.5.2 Conjunctive normal forms and validity",
+        74
+    ],
+    [
+        3,
+        "1.5.3 Horn clauses and satisfiability",
+        81
+    ],
+    [
+        2,
+        "1.6 SAT solvers",
+        84
+    ],
+    [
+        3,
+        "1.6.1 A linear solver",
+        85
+    ],
+    [
+        3,
+        "1.6.2 A cubic solver",
+        88
+    ],
+    [
+        2,
+        "1.7 Exercises",
+        94
+    ],
+    [
+        2,
+        "1.8 Bibliographic notes",
+        107
+    ],
+    [
+        1,
+        "2 Predicate logic",
+        109
+    ],
+    [
+        2,
+        "2.1 The need for a richer language",
+        109
+    ],
+    [
+        2,
+        "2.2 Predicate logic as a formal language",
+        114
+    ],
+    [
+        3,
+        "2.2.1 Terms",
+        115
+    ],
+    [
+        3,
+        "2.2.2 Formulas",
+        116
+    ],
+    [
+        3,
+        "2.2.3 Free and bound variables",
+        118
+    ],
+    [
+        3,
+        "2.2.4 Substitution",
+        120
+    ],
+    [
+        2,
+        "2.3 Proof theory of predicate logic",
+        123
+    ],
+    [
+        3,
+        "2.3.1 Natural deduction rules",
+        123
+    ],
+    [
+        3,
+        "2.3.2 Quantifier equivalences",
+        133
+    ],
+    [
+        2,
+        "2.4 Semantics of predicate logic",
+        138
+    ],
+    [
+        3,
+        "2.4.1 Models",
+        139
+    ],
+    [
+        3,
+        "2.4.2 Semantic entailment",
+        145
+    ],
+    [
+        3,
+        "2.4.3 The semantics of equality",
+        146
+    ],
+    [
+        2,
+        "2.5 Undecidability of predicate logic",
+        147
+    ],
+    [
+        2,
+        "2.6 Expressiveness of predicate logic",
+        152
+    ],
+    [
+        3,
+        "2.6.1 Existential second-order logic",
+        155
+    ],
+    [
+        3,
+        "2.6.2 Universal second-order logic",
+        156
+    ],
+    [
+        2,
+        "2.7 Micromodels of software",
+        157
+    ],
+    [
+        3,
+        "2.7.1 State machines",
+        158
+    ],
+    [
+        3,
+        "2.7.2 Alma – re-visited",
+        162
+    ],
+    [
+        3,
+        "2.7.3 A software micromodel",
+        164
+    ],
+    [
+        2,
+        "2.8 Exercises",
+        173
+    ],
+    [
+        2,
+        "2.9 Bibliographic notes",
+        186
+    ],
+    [
+        1,
+        "3 Verification by model checking",
+        188
+    ],
+    [
+        2,
+        "3.1 Motivation for verification",
+        188
+    ],
+    [
+        2,
+        "3.2 Linear-time temporal logic",
+        191
+    ],
+    [
+        3,
+        "3.2.1 Syntax of LTL",
+        191
+    ],
+    [
+        3,
+        "3.2.2 Semantics of LTL",
+        194
+    ],
+    [
+        3,
+        "3.2.3 Practical patterns of specifications",
+        199
+    ],
+    [
+        3,
+        "3.2.4 Important equivalences between LTL formulas",
+        200
+    ],
+    [
+        3,
+        "3.2.5 Adequate sets of connectives for LTL",
+        202
+    ],
+    [
+        2,
+        "3.3 Model checking: systems, tools, properties",
+        203
+    ],
+    [
+        3,
+        "3.3.1 Example: mutual exclusion",
+        203
+    ],
+    [
+        3,
+        "3.3.2 The NuSMV model checker",
+        207
+    ],
+    [
+        3,
+        "3.3.3 Running NuSMV",
+        210
+    ],
+    [
+        3,
+        "3.3.4 Mutual exclusion revisited",
+        211
+    ],
+    [
+        3,
+        "3.3.5 The ferryman",
+        215
+    ],
+    [
+        3,
+        "3.3.6 The alternating bit protocol",
+        219
+    ],
+    [
+        2,
+        "3.4 Branching-time logic",
+        223
+    ],
+    [
+        3,
+        "3.4.1 Syntax of CTL",
+        224
+    ],
+    [
+        3,
+        "3.4.2 Semantics of computation tree logic",
+        227
+    ],
+    [
+        3,
+        "3.4.3 Practical patterns of specifications",
+        231
+    ],
+    [
+        3,
+        "3.4.4 Important equivalences between CTL formulas",
+        231
+    ],
+    [
+        3,
+        "3.4.5 Adequate sets of CTL connectives",
+        232
+    ],
+    [
+        2,
+        "3.5 CTL and the expressive powers of LTL and CTL",
+        233
+    ],
+    [
+        3,
+        "3.5.1 Boolean combinations of temporal formulas in CTL",
+        236
+    ],
+    [
+        3,
+        "3.5.2 Past operators in LTL",
+        237
+    ],
+    [
+        2,
+        "3.6 Model-checking algorithms",
+        237
+    ],
+    [
+        3,
+        "3.6.1 The CTL model-checking algorithm",
+        238
+    ],
+    [
+        3,
+        "3.6.2 CTL model checking with fairness",
+        246
+    ],
+    [
+        3,
+        "3.6.3 The LTL model-checking algorithm",
+        248
+    ],
+    [
+        2,
+        "3.7 The fixed-point characterisation of CTL",
+        254
+    ],
+    [
+        3,
+        "3.7.1 Monotone functions",
+        256
+    ],
+    [
+        3,
+        "3.7.2 The correctness of SATEG",
+        258
+    ],
+    [
+        3,
+        "3.7.3 The correctness of SATEU",
+        259
+    ],
+    [
+        2,
+        "3.8 Exercises",
+        261
+    ],
+    [
+        2,
+        "3.9 Bibliographic notes",
+        270
+    ],
+    [
+        1,
+        "4 Program verification",
+        272
+    ],
+    [
+        2,
+        "4.1 Why should we specify and verify code?",
+        273
+    ],
+    [
+        2,
+        "4.2 A framework for software verification",
+        274
+    ],
+    [
+        3,
+        "4.2.1 A core programming language",
+        275
+    ],
+    [
+        3,
+        "4.2.2 Hoare triples",
+        278
+    ],
+    [
+        3,
+        "4.2.3 Partial and total correctness",
+        281
+    ],
+    [
+        3,
+        "4.2.4 Program variables and logical variables",
+        284
+    ],
+    [
+        2,
+        "4.3 Proof calculus for partial correctness",
+        285
+    ],
+    [
+        3,
+        "4.3.1 Proof rules",
+        285
+    ],
+    [
+        3,
+        "4.3.2 Proof tableaux",
+        289
+    ],
+    [
+        3,
+        "4.3.3 A case study: minimal-sum section",
+        303
+    ],
+    [
+        2,
+        "4.4 Proof calculus for total correctness",
+        308
+    ],
+    [
+        2,
+        "4.5 Programming by contract",
+        312
+    ],
+    [
+        2,
+        "4.6 Exercises",
+        315
+    ],
+    [
+        2,
+        "4.7 Bibliographic notes",
+        320
+    ],
+    [
+        1,
+        "5 Modal logics and agents",
+        322
+    ],
+    [
+        2,
+        "5.1 Modes of truth",
+        322
+    ],
+    [
+        2,
+        "5.2 Basic modal logic",
+        323
+    ],
+    [
+        3,
+        "5.2.1 Syntax",
+        323
+    ],
+    [
+        3,
+        "5.2.2 Semantics",
+        324
+    ],
+    [
+        4,
+        "Equivalences between modal formulas",
+        329
+    ],
+    [
+        4,
+        "Valid formulas",
+        330
+    ],
+    [
+        2,
+        "5.3 Logic engineering",
+        332
+    ],
+    [
+        3,
+        "5.3.1 The stock of valid formulas",
+        333
+    ],
+    [
+        3,
+        "5.3.2 Important properties of the accessibility relation",
+        336
+    ],
+    [
+        3,
+        "5.3.3 Correspondence theory",
+        338
+    ],
+    [
+        3,
+        "5.3.4 Some modal logics",
+        342
+    ],
+    [
+        2,
+        "5.4 Natural deduction",
+        344
+    ],
+    [
+        2,
+        "5.5 Reasoning about knowledge in a multi-agent system",
+        347
+    ],
+    [
+        3,
+        "5.5.1 Some examples",
+        348
+    ],
+    [
+        3,
+        "5.5.2 The modal logic KT45n",
+        351
+    ],
+    [
+        3,
+        "5.5.3 Natural deduction for KT45n",
+        355
+    ],
+    [
+        3,
+        "5.5.4 Formalising the examples",
+        358
+    ],
+    [
+        2,
+        "5.6 Exercises",
+        366
+    ],
+    [
+        2,
+        "5.7 Bibliographic notes",
+        372
+    ],
+    [
+        1,
+        "6 Binary decision diagrams",
+        374
+    ],
+    [
+        2,
+        "6.1 Representing boolean functions",
+        374
+    ],
+    [
+        3,
+        "6.1.1 Propositional formulas and truth tables",
+        375
+    ],
+    [
+        3,
+        "6.1.2 Binary decision diagrams",
+        377
+    ],
+    [
+        3,
+        "6.1.3 Ordered BDDs",
+        382
+    ],
+    [
+        2,
+        "6.2 Algorithms for reduced OBDDs",
+        388
+    ],
+    [
+        3,
+        "6.2.1 The algorithm reduce",
+        388
+    ],
+    [
+        3,
+        "6.2.2 The algorithm apply",
+        389
+    ],
+    [
+        3,
+        "6.2.3 The algorithm restrict",
+        393
+    ],
+    [
+        3,
+        "6.2.4 The algorithm exists",
+        393
+    ],
+    [
+        3,
+        "6.2.5 Assessment of OBDDs",
+        396
+    ],
+    [
+        2,
+        "6.3 Symbolic model checking",
+        398
+    ],
+    [
+        3,
+        "6.3.1 Representing subsets of the set of states",
+        399
+    ],
+    [
+        3,
+        "6.3.2 Representing the transition relation",
+        401
+    ],
+    [
+        3,
+        "6.3.3 Implementing the functions…",
+        403
+    ],
+    [
+        3,
+        "6.3.4 Synthesising OBDDs",
+        403
+    ],
+    [
+        2,
+        "6.4 A relational mu-calculus",
+        406
+    ],
+    [
+        3,
+        "6.4.1 Syntax and semantics",
+        406
+    ],
+    [
+        2,
+        "6.5 Exercises",
+        414
+    ],
+    [
+        2,
+        "6.6 Bibliographic notes",
+        429
+    ],
+    [
+        1,
+        "Bibliography",
+        430
+    ],
+    [
+        1,
+        "Index",
+        434
+    ]
+]
