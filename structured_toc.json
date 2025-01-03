@@ -1,0 +1,737 @@
+[
+    [
+        1,
+        "Copyright",
+        4
+    ],
+    [
+        1,
+        "Table of Contents",
+        5
+    ],
+    [
+        1,
+        "Preface",
+        9
+    ],
+    [
+        2,
+        "Who Should Read This Book",
+        9
+    ],
+    [
+        2,
+        "Why We Wrote This Book",
+        10
+    ],
+    [
+        2,
+        "Navigating This Book",
+        10
+    ],
+    [
+        2,
+        "Online Resources",
+        11
+    ],
+    [
+        2,
+        "Conventions Used in This Book",
+        11
+    ],
+    [
+        2,
+        "Using Code Examples",
+        12
+    ],
+    [
+        2,
+        "Safari® Books Online",
+        12
+    ],
+    [
+        2,
+        "How to Contact Us",
+        13
+    ],
+    [
+        2,
+        "Acknowledgments",
+        13
+    ],
+    [
+        3,
+        "From Andreas",
+        13
+    ],
+    [
+        3,
+        "From Sarah",
+        14
+    ],
+    [
+        1,
+        "Chapter 1. Introduction",
+        15
+    ],
+    [
+        2,
+        "Why Machine Learning?",
+        15
+    ],
+    [
+        3,
+        "Problems Machine Learning Can Solve",
+        16
+    ],
+    [
+        3,
+        "Knowing Your Task and Knowing Your Data",
+        18
+    ],
+    [
+        2,
+        "Why Python?",
+        19
+    ],
+    [
+        2,
+        "scikit-learn",
+        19
+    ],
+    [
+        3,
+        "Installing scikit-learn",
+        20
+    ],
+    [
+        2,
+        "Essential Libraries and Tools",
+        21
+    ],
+    [
+        3,
+        "Jupyter Notebook",
+        21
+    ],
+    [
+        3,
+        "NumPy",
+        21
+    ],
+    [
+        3,
+        "SciPy",
+        22
+    ],
+    [
+        3,
+        "matplotlib",
+        23
+    ],
+    [
+        3,
+        "pandas",
+        24
+    ],
+    [
+        3,
+        "mglearn",
+        25
+    ],
+    [
+        2,
+        "Python 2 Versus Python 3",
+        26
+    ],
+    [
+        2,
+        "Versions Used in this Book",
+        26
+    ],
+    [
+        2,
+        "A First Application: Classifying Iris Species",
+        27
+    ],
+    [
+        3,
+        "Meet the Data",
+        28
+    ],
+    [
+        3,
+        "Measuring Success: Training and Testing Data",
+        31
+    ],
+    [
+        3,
+        "First Things First: Look at Your Data",
+        33
+    ],
+    [
+        3,
+        "Building Your First Model: k-Nearest Neighbors",
+        34
+    ],
+    [
+        3,
+        "Making Predictions",
+        36
+    ],
+    [
+        3,
+        "Evaluating the Model",
+        36
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        37
+    ],
+    [
+        1,
+        "Chapter 2. Supervised Learning",
+        39
+    ],
+    [
+        2,
+        "Classification and Regression",
+        39
+    ],
+    [
+        2,
+        "Generalization, Overfitting, and Underfitting",
+        40
+    ],
+    [
+        3,
+        "Relation of Model Complexity to Dataset Size",
+        43
+    ],
+    [
+        2,
+        "Supervised Machine Learning Algorithms",
+        43
+    ],
+    [
+        3,
+        "Some Sample Datasets",
+        44
+    ],
+    [
+        3,
+        "k-Nearest Neighbors",
+        49
+    ],
+    [
+        3,
+        "Linear Models",
+        59
+    ],
+    [
+        3,
+        "Naive Bayes Classifiers",
+        82
+    ],
+    [
+        3,
+        "Decision Trees",
+        84
+    ],
+    [
+        3,
+        "Ensembles of Decision Trees",
+        97
+    ],
+    [
+        3,
+        "Kernelized Support Vector Machines",
+        106
+    ],
+    [
+        3,
+        "Neural Networks (Deep Learning)",
+        118
+    ],
+    [
+        2,
+        "Uncertainty Estimates from Classifiers",
+        133
+    ],
+    [
+        3,
+        "The Decision Function",
+        134
+    ],
+    [
+        3,
+        "Predicting Probabilities",
+        136
+    ],
+    [
+        3,
+        "Uncertainty in Multiclass Classification",
+        138
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        141
+    ],
+    [
+        1,
+        "Chapter 3. Unsupervised Learning and Preprocessing",
+        145
+    ],
+    [
+        2,
+        "Types of Unsupervised Learning",
+        145
+    ],
+    [
+        2,
+        "Challenges in Unsupervised Learning",
+        146
+    ],
+    [
+        2,
+        "Preprocessing and Scaling",
+        146
+    ],
+    [
+        3,
+        "Different Kinds of Preprocessing",
+        147
+    ],
+    [
+        3,
+        "Applying Data Transformations",
+        148
+    ],
+    [
+        3,
+        "Scaling Training and Test Data the Same Way",
+        150
+    ],
+    [
+        3,
+        "The Effect of Preprocessing on Supervised Learning",
+        152
+    ],
+    [
+        2,
+        "Dimensionality Reduction, Feature Extraction, and Manifold Learning",
+        154
+    ],
+    [
+        3,
+        "Principal Component Analysis (PCA)",
+        154
+    ],
+    [
+        3,
+        "Non-Negative Matrix Factorization (NMF)",
+        170
+    ],
+    [
+        3,
+        "Manifold Learning with t-SNE",
+        177
+    ],
+    [
+        2,
+        "Clustering",
+        182
+    ],
+    [
+        3,
+        "k-Means Clustering",
+        182
+    ],
+    [
+        3,
+        "Agglomerative Clustering",
+        196
+    ],
+    [
+        3,
+        "DBSCAN",
+        201
+    ],
+    [
+        3,
+        "Comparing and Evaluating Clustering Algorithms",
+        205
+    ],
+    [
+        3,
+        "Summary of Clustering Methods",
+        221
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        222
+    ],
+    [
+        1,
+        "Chapter 4. Representing Data and Engineering Features",
+        225
+    ],
+    [
+        2,
+        "Categorical Variables",
+        226
+    ],
+    [
+        3,
+        "One-Hot-Encoding (Dummy Variables)",
+        227
+    ],
+    [
+        3,
+        "Numbers Can Encode Categoricals",
+        232
+    ],
+    [
+        2,
+        "Binning, Discretization, Linear Models, and Trees",
+        234
+    ],
+    [
+        2,
+        "Interactions and Polynomials",
+        238
+    ],
+    [
+        2,
+        "Univariate Nonlinear Transformations",
+        246
+    ],
+    [
+        2,
+        "Automatic Feature Selection",
+        250
+    ],
+    [
+        3,
+        "Univariate Statistics",
+        250
+    ],
+    [
+        3,
+        "Model-Based Feature Selection",
+        252
+    ],
+    [
+        3,
+        "Iterative Feature Selection",
+        254
+    ],
+    [
+        2,
+        "Utilizing Expert Knowledge",
+        256
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        264
+    ],
+    [
+        1,
+        "Chapter 5. Model Evaluation and Improvement",
+        265
+    ],
+    [
+        2,
+        "Cross-Validation",
+        266
+    ],
+    [
+        3,
+        "Cross-Validation in scikit-learn",
+        267
+    ],
+    [
+        3,
+        "Benefits of Cross-Validation",
+        268
+    ],
+    [
+        3,
+        "Stratified k-Fold Cross-Validation and Other Strategies",
+        268
+    ],
+    [
+        2,
+        "Grid Search",
+        274
+    ],
+    [
+        3,
+        "Simple Grid Search",
+        275
+    ],
+    [
+        3,
+        "The Danger of Overfitting the Parameters and the Validation Set",
+        275
+    ],
+    [
+        3,
+        "Grid Search with Cross-Validation",
+        277
+    ],
+    [
+        2,
+        "Evaluation Metrics and Scoring",
+        289
+    ],
+    [
+        3,
+        "Keep the End Goal in Mind",
+        289
+    ],
+    [
+        3,
+        "Metrics for Binary Classification",
+        290
+    ],
+    [
+        3,
+        "Metrics for Multiclass Classification",
+        310
+    ],
+    [
+        3,
+        "Regression Metrics",
+        313
+    ],
+    [
+        3,
+        "Using Evaluation Metrics in Model Selection",
+        314
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        316
+    ],
+    [
+        1,
+        "Chapter 6. Algorithm Chains and Pipelines",
+        319
+    ],
+    [
+        2,
+        "Parameter Selection with Preprocessing",
+        320
+    ],
+    [
+        2,
+        "Building Pipelines",
+        322
+    ],
+    [
+        2,
+        "Using Pipelines in Grid Searches",
+        323
+    ],
+    [
+        2,
+        "The General Pipeline Interface",
+        326
+    ],
+    [
+        3,
+        "Convenient Pipeline Creation with make_pipeline",
+        327
+    ],
+    [
+        3,
+        "Accessing Step Attributes",
+        328
+    ],
+    [
+        3,
+        "Accessing Attributes in a Grid-Searched Pipeline",
+        329
+    ],
+    [
+        2,
+        "Grid-Searching Preprocessing Steps and Model Parameters",
+        331
+    ],
+    [
+        2,
+        "Grid-Searching Which Model To Use",
+        333
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        334
+    ],
+    [
+        1,
+        "Chapter 7. Working with Text Data",
+        337
+    ],
+    [
+        2,
+        "Types of Data Represented as Strings",
+        337
+    ],
+    [
+        2,
+        "Example Application: Sentiment Analysis of Movie Reviews",
+        339
+    ],
+    [
+        2,
+        "Representing Text Data as a Bag of Words",
+        341
+    ],
+    [
+        3,
+        "Applying Bag-of-Words to a Toy Dataset",
+        343
+    ],
+    [
+        3,
+        "Bag-of-Words for Movie Reviews",
+        344
+    ],
+    [
+        2,
+        "Stopwords",
+        348
+    ],
+    [
+        2,
+        "Rescaling the Data with tf–idf",
+        350
+    ],
+    [
+        2,
+        "Investigating Model Coefficients",
+        352
+    ],
+    [
+        2,
+        "Bag-of-Words with More Than One Word (n-Grams)",
+        353
+    ],
+    [
+        2,
+        "Advanced Tokenization, Stemming, and Lemmatization",
+        358
+    ],
+    [
+        2,
+        "Topic Modeling and Document Clustering",
+        361
+    ],
+    [
+        3,
+        "Latent Dirichlet Allocation",
+        362
+    ],
+    [
+        2,
+        "Summary and Outlook",
+        369
+    ],
+    [
+        1,
+        "Chapter 8. Wrapping Up",
+        371
+    ],
+    [
+        2,
+        "Approaching a Machine Learning Problem",
+        371
+    ],
+    [
+        3,
+        "Humans in the Loop",
+        372
+    ],
+    [
+        2,
+        "From Prototype to Production",
+        373
+    ],
+    [
+        2,
+        "Testing Production Systems",
+        373
+    ],
+    [
+        2,
+        "Building Your Own Estimator",
+        374
+    ],
+    [
+        2,
+        "Where to Go from Here",
+        375
+    ],
+    [
+        3,
+        "Theory",
+        375
+    ],
+    [
+        3,
+        "Other Machine Learning Frameworks and Packages",
+        376
+    ],
+    [
+        3,
+        "Ranking, Recommender Systems, and Other Kinds of Learning",
+        377
+    ],
+    [
+        3,
+        "Probabilistic Modeling, Inference, and Probabilistic Programming",
+        377
+    ],
+    [
+        3,
+        "Neural Networks",
+        378
+    ],
+    [
+        3,
+        "Scaling to Larger Datasets",
+        378
+    ],
+    [
+        3,
+        "Honing Your Skills",
+        379
+    ],
+    [
+        2,
+        "Conclusion",
+        380
+    ],
+    [
+        1,
+        "Index",
+        381
+    ],
+    [
+        1,
+        "About the Authors",
+        391
+    ],
+    [
+        1,
+        "Colophon",
+        391
+    ]
+]

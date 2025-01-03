@@ -27,7 +27,8 @@ def save_chunks_to_json(chunks, output_path):
 pdf_files = [
     # r'D:\webscrap\HierarchialQA\nlp-book.pdf',
     # r'D:\webscrap\HierarchialQA\LogicInCS.pdf',
-    r'D:\webscrap\HierarchialQA\textbook.pdf'
+    # r'D:\webscrap\HierarchialQA\textbook.pdf'
+    r'D:\webscrap\HierarchialQA\mlbasics.pdf'
 ]
 
 # Directory to save the output JSON files

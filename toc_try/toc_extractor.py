@@ -31,7 +31,7 @@ def extract_toc(pdf_path):
         return nodes
 
 # Example usage
-pdf_path = r"D:\webscrap\HierarchialQA\textbook.pdf"
+pdf_path = r"D:\webscrap\HierarchialQA\mlbasics.pdf"
 try:
     toc = extract_toc(pdf_path)
     print("Extracted ToC:", toc)

@@ -1,13 +1,17 @@
 import json
 from collections import defaultdict
 from sentence_transformers import SentenceTransformer, util
+from transformers import pipeline
+import torch
 
 # Define a class to represent a node in the hierarchical tree
 class Node:
-    def __init__(self, node_id, title, content=None):
+    def __init__(self, node_id, title, level, content=None):
         self.node_id = node_id
         self.title = title
+        self.level = level
         self.content = content
+        self.summary = None
         self.children = []
 
     def add_child(self, child):
@@ -18,199 +22,128 @@ class Node:
             "id": self.node_id,
             "title": self.title,
             "content": self.content,
+            "summary": self.summary,
             "children": [child.to_dict() for child in self.children]
         }
 
-# Load a pre-trained model for semantic similarity
-model = SentenceTransformer('all-MiniLM-L6-v2', cache_folder="path_to_cache")
+
+# Load models
+embedding_model = SentenceTransformer('all-mpnet-base-v2')
+summarizer = pipeline("summarization", model="facebook/bart-large-cnn", device=0 if torch.cuda.is_available() else -1)
+
 
 def assign_chunks_with_embeddings(subsection_title, chunks):
     """Find chunks relevant to the subsection title using semantic similarity."""
-    subsection_embedding = model.encode(subsection_title)
-    chunk_embeddings = {chunk: model.encode(chunk) for chunk in chunks}
-    threshold = 0.5 
-    scores = {chunk: util.cos_sim(subsection_embedding, chunk_embedding).item() for chunk, chunk_embedding in chunk_embeddings.items()}
-    # Select top 5 most relevant chunks
-    relevant_chunks = sorted(scores.items(), key=lambda x: x[1], reverse=True)[:6]
-    return [chunk for chunk, score in relevant_chunks]
+    subsection_embedding = embedding_model.encode(subsection_title)
+    chunk_embeddings = {chunk: embedding_model.encode(chunk) for chunk in chunks}
 
-# Function to parse the table of contents and build the hierarchical tree
+    scores = {chunk: util.cos_sim(subsection_embedding, chunk_embedding).item() for chunk, chunk_embedding in chunk_embeddings.items()}
+    # Select relevant chunks above a threshold
+    threshold = 0.5  # Adjust as needed
+    relevant_chunks = [chunk for chunk, score in scores.items() if score > threshold]
+
+    # Sort by relevance and limit to top results
+    relevant_chunks = sorted(relevant_chunks, key=lambda chunk: scores[chunk], reverse=True)[:8]
+    return relevant_chunks
+
+
+def generate_summary(text, max_length=150):
+    """Generate a concise summary of the text."""
+    if not text or len(text.strip()) < 50:  # Skip short texts
+        return text
+
+    try:
+        max_chunk_length = 1024
+        chunks = []
+
+        if len(text) > max_chunk_length:
+            sentences = text.split(". ")
+            current_chunk = ""
+            for sentence in sentences:
+                if len(current_chunk) + len(sentence) < max_chunk_length:
+                    current_chunk += sentence + ". "
+                else:
+                    if current_chunk:
+                        chunks.append(current_chunk)
+                    current_chunk = sentence + ". "
+            if current_chunk:
+                chunks.append(current_chunk)
+        else:
+            chunks = [text]
+
+        summaries = []
+        for chunk in chunks:
+            chunk_words = len(chunk.split())
+            max_summary_length = min(max_length, chunk_words)  # Ensure max_length doesn't exceed chunk length
+            min_summary_length = max(10, max_summary_length - 10)  # Ensure min_length < max_length and >= 10
+
+            if max_summary_length <= min_summary_length:
+                summaries.append(chunk)  # Skip summarization for very short texts
+            else:
+                summary = summarizer(
+                    chunk,
+                    max_length=max_summary_length,
+                    min_length=min_summary_length,
+                    do_sample=False
+                )[0]['summary_text']
+                summaries.append(summary)
+        return " ".join(summaries)
+    except Exception as e:
+        print(f"Summarization error: {e}")
+        return text[:max_length]
+
+
 def build_hierarchical_tree(toc, chunks):
     """
     Build a hierarchical tree from the table of contents (ToC) and text chunks.
     """
-    tree = Node("root", "Textbook")
-    chapter_nodes = {}  # Track chapters by ID
+    tree = Node("root", "Textbook", level=0)
 
     # Iterate through chapters in the ToC
-    for chapter_title, sections in toc.items():
-        chapter_id = f"chapter-{len(chapter_nodes) + 1}"
-        chapter_node = Node(chapter_id, chapter_title)
-        chapter_nodes[chapter_id] = chapter_node  # Store chapter for tracking
+    for chapter_idx, (chapter_title, sections) in enumerate(toc.items(), 1):
+        chapter_id = f"chapter-{chapter_idx}"
+        chapter_node = Node(chapter_id, chapter_title, level=1)
 
-        # Process sections in the chapter
-        for section_title, subsections in sections.items():
-            section_id = f"{chapter_id}-section-{len(chapter_node.children) + 1}"
-            section_node = Node(section_id, section_title)
+        for section_idx, (section_title, subsections) in enumerate(sections.items(), 1):
+            section_id = f"{chapter_id}-section-{section_idx}"
+            section_node = Node(section_id, section_title, level=2)
 
             # Process subsections
-            for subsection_title in subsections:
-                subsection_id = f"{section_id}-subsection-{len(section_node.children) + 1}"
-                subsection_node = Node(subsection_id, subsection_title)
+            for subsection_idx, subsection_title in enumerate(subsections, 1):
+                subsection_id = f"{section_id}-subsection-{subsection_idx}"
+                subsection_node = Node(subsection_id, subsection_title, level=3)
 
                 # Find and assign relevant chunks
-                relevant_chunks = find_relevant_chunks(subsection_title, chunks)
+                relevant_chunks = assign_chunks_with_embeddings(subsection_title, chunks)
                 subsection_node.content = "\n".join(relevant_chunks)
+
+                # Generate summary for subsection
+                if subsection_node.content:
+                    subsection_node.summary = generate_summary(subsection_node.content)
+
                 section_node.add_child(subsection_node)
 
-            # Add section to chapter
+            # Summarize section if it has subsections
+            if section_node.children:
+                combined_content = " ".join(child.content for child in section_node.children if child.content)
+                section_node.content = combined_content
+                section_node.summary = generate_summary(combined_content)
+
             chapter_node.add_child(section_node)
 
-        # Add chapter to the root node
+        # Summarize chapter if it has sections
+        if chapter_node.children:
+            combined_content = " ".join(child.content for child in chapter_node.children if child.content)
+            chapter_node.content = combined_content
+            chapter_node.summary = generate_summary(combined_content)
+
         tree.add_child(chapter_node)
 
     return tree
 
 
-# Example ToC (table of contents) and chunk loading
-textbook_toc = {
-    "Linear Equations": {
-        "Fields": [],
-        "Systems of Linear Equations": [],
-        "Matrices and Elementary Row Operations": [],
-        "Row-Reduced Echelon Matrices": [],
-        "Matrix Multiplication": [],
-        "Invertible Matrices": []
-    },
-    "Vector Spaces": {
-        "Vector Spaces": [],
-        "Subspaces": [],
-        "Bases and Dimension": [],
-        "Coordinates": [],
-        "Summary of Row-Equivalence": [],
-        "Computations Concerning Subspaces": []
-    },
-    "Linear Transformations": {
-        "Linear Transformations": [],
-        "The Algebra of Linear Transformations": [],
-        "Isomorphism": [],
-        "Representation of Transformations by Matrices": [],
-        "Linear Functionals": [],
-        "The Double Dual": [],
-        "The Transpose of a Linear Transformation": []
-    },
-    "Polynomials": {
-        "Algebras": [],
-        "The Algebra of Polynomials": [],
-        "Lagrange Interpolation": [],
-        "Polynomial Ideals": [],
-        "The Prime Factorization of a Polynomial": []
-    },
-    "Determinants": {
-        "Commutative Rings": [],
-        "Determinant Functions": [],
-        "Permutations and the Uniqueness of Determinants": [],
-        "Additional Properties of Determinants": [],
-        "Modules": [],
-        "Multilinear Functions": [],
-        "The Grassman Ring": []
-    },
-    "Elementary Canonical Forms": {
-        "Introduction": [],
-        "Characteristic Values": [],
-        "Annihilating Polynomials": [],
-        "Invariant Subspaces": [],
-        "Simultaneous Triangulation; Simultaneous Diagonalization": [],
-        "Direct-Sum Decompositions": [],
-        "Invariant Direct Sums": [],
-        "The Primary Decomposition Theorem": []
-    },
-    "The Rational and Jordan Forms": {
-        "Cyclic Subspaces and Annihilators": [],
-        "Cyclic Decompositions and the Rational Form": [],
-        "The Jordan Form": [],
-        "Computation of Invariant Factors": [],
-        "Summary; Semi-Simple Operators": []
-    },
-    "Inner Product Spaces": {
-        "Inner Products": [],
-        "Inner Product Spaces": [],
-        "Linear Functionals and Adjoints": [],
-        "Unitary Operators": [],
-        "Normal Operators": []
-    },
-    "Operators on Inner Product Spaces": {
-        "Introduction": [],
-        "Forms on Inner Product Spaces": [],
-        "Positive Forms": [],
-        "More on Forms": [],
-        "Spectral Theory": [],
-        "Further Properties of Normal Operators": []
-    },
-    "Bilinear Forms": {
-        "Bilinear Forms": [],
-        "Symmetric Bilinear Forms": [],
-        "Skew-Symmetric Bilinear Forms": [],
-        "Groups Preserving Bilinear Forms": []
-    },
-    "Appendix": {
-        "Sets": [],
-        "Functions": [],
-        "Equivalence Relations": [],
-        "Quotient Spaces": [],
-        "Equivalence Relations in Linear Algebra": [],
-        "The Axiom of Choice": []
-    }
-}
-
-logic_toc = {
-    "Propositional Logic": {
-        "Declarative Sentences": [],
-        "Natural Deduction": ["Rules for Natural Deduction", "Derived Rules", "Natural Deduction in Summary", "Provable Equivalence", "Proof by Contradiction"],
-        "Semantics of Propositional Logic": ["Meaning of Logical Connectives", "Mathematical Induction", "Soundness of Propositional Logic", "Completeness of Propositional Logic"],
-        "Normal Forms": ["Semantic Equivalence, Satisfiability and Validity", "Conjunctive Normal Forms and Validity", "Horn Clauses and Satisfiability"],
-        "SAT Solvers": ["A Linear Solver", "A Cubic Solver"]
-    },
-    "Predicate Logic": {
-        "The Need for a Richer Language": [],
-        "Predicate Logic as a Formal Language": ["Terms", "Formulas", "Free and Bound Variables", "Substitution"],
-        "Proof Theory of Predicate Logic": ["Natural Deduction Rules", "Quantifier Equivalences"],
-        "Semantics of Predicate Logic": ["Models", "Semantic Entailment", "The Semantics of Equality"],
-        "Undecidability of Predicate Logic": [],
-        "Expressiveness of Predicate Logic": ["Existential Second-Order Logic", "Universal Second-Order Logic"],
-        "Micromodels of Software": ["State Machines", "Alma – Revisited", "A Software Micromodel"]
-    },
-    "Verification by Model Checking": {
-        "Motivation for Verification": [],
-        "Linear-Time Temporal Logic": ["Syntax of LTL", "Semantics of LTL", "Practical Patterns of Specifications", "Important Equivalences Between LTL Formulas", "Adequate Sets of Connectives for LTL"],
-        "Model Checking: Systems, Tools, Properties": ["Example: Mutual Exclusion", "The NuSMV Model Checker", "Running NuSMV", "Mutual Exclusion Revisited", "The Ferryman", "The Alternating Bit Protocol"],
-        "Branching-Time Logic": ["Syntax of CTL", "Semantics of CTL", "Practical Patterns of Specifications", "Important Equivalences Between CTL Formulas", "Adequate Sets of CTL Connectives"],
-        "CTL* and the Expressive Powers of LTL and CTL": ["Boolean Combinations of Temporal Formulas in CTL", "Past Operators in LTL"],
-        "Model-Checking Algorithms": ["The CTL Model-Checking Algorithm", "CTL Model Checking with Fairness", "The LTL Model-Checking Algorithm"],
-        "The Fixed-Point Characterisation of CTL": ["Monotone Functions", "The Correctness of SATEG", "The Correctness of SATEU"]
-    },
-    "Program Verification": {
-        "Why Should We Specify and Verify Code?": [],
-        "A Framework for Software Verification": ["A Core Programming Language", "Hoare Triples", "Partial and Total Correctness", "Program Variables and Logical Variables"],
-        "Proof Calculus for Partial Correctness": ["Proof Rules", "Proof Tableaux", "A Case Study: Minimal-Sum Section"],
-        "Proof Calculus for Total Correctness": [],
-        "Programming by Contract": []
-    },
-    "Modal Logics and Agents": {
-        "Modes of Truth": [],
-        "Basic Modal Logic": ["Syntax", "Semantics"],
-        "Logic Engineering": ["The Stock of Valid Formulas", "Important Properties of the Accessibility Relation", "Correspondence Theory", "Some Modal Logics"],
-        "Natural Deduction": [],
-        "Reasoning About Knowledge in a Multi-Agent System": ["Some Examples", "The Modal Logic KT45n", "Natural Deduction for KT45n", "Formalising the Examples"]
-    },
-    "Binary Decision Diagrams": {
-        "Representing Boolean Functions": ["Propositional Formulas and Truth Tables", "Binary Decision Diagrams", "Ordered BDDs"],
-        "Algorithms for Reduced OBDDs": ["The Algorithm Reduce", "The Algorithm Apply", "The Algorithm Restrict", "The Algorithm Exists"],
-        "Symbolic Model Checking": ["Representing Subsets of the Set of States", "Representing the Transition Relation", "Implementing the Functions pre∃ and pre∀", "Synthesising OBDDs"],
-        "A Relational Mu-Calculus": ["Syntax and Semantics", "Coding CTL Models and Specifications"]
-    }
-}
-nlp_toc = { 
+# Example ToC and chunk loading
+nlp_toc = {
     "The Information Age": {
         "The Information Age": [],
         "Technology for Accessing Info": [],
@@ -332,16 +265,172 @@ nlp_toc = {
     }
 }
 
+ml_toc = {
+    "1. Introduction": {
+        "Why Machine Learning?": [],
+        "Problems Machine Learning Can Solve": [],
+        "Knowing Your Task and Knowing Your Data": [],
+        "Why Python?": [],
+        "scikit-learn": [],
+        "Installing scikit-learn": [],
+        "Essential Libraries and Tools": [
+            "Jupyter Notebook",
+            "NumPy",
+            "SciPy",
+            "matplotlib",
+            "pandas",
+            "mglearn"
+        ],
+        "Python 2 Versus Python 3": [],
+        "Versions Used in this Book": [],
+        "A First Application: Classifying Iris Species": [
+            "Meet the Data",
+            "Measuring Success: Training and Testing Data",
+            "First Things First: Look at Your Data",
+            "Building Your First Model: k-Nearest Neighbors",
+            "Making Predictions",
+            "Evaluating the Model"
+        ],
+        "Summary and Outlook": []
+    },
+    "2. Supervised Learning": {
+        "Classification and Regression": [],
+        "Generalization, Overfitting, and Underfitting": [],
+        "Relation of Model Complexity to Dataset Size": [],
+        "Supervised Machine Learning Algorithms": [],
+        "Some Sample Datasets": [],
+        "k-Nearest Neighbors": [],
+        "Linear Models": [],
+        "Naive Bayes Classifiers": [],
+        "Decision Trees": [],
+        "Ensembles of Decision Trees": [],
+        "Kernelized Support Vector Machines": [],
+        "Neural Networks (Deep Learning)": [],
+        "Uncertainty Estimates from Classifiers": [
+            "The Decision Function",
+            "Predicting Probabilities",
+            "Uncertainty in Multiclass Classification"
+        ],
+        "Summary and Outlook": []
+    },
+    "3. Unsupervised Learning and Preprocessing": {
+        "Types of Unsupervised Learning": [],
+        "Challenges in Unsupervised Learning": [],
+        "Preprocessing and Scaling": [
+            "Different Kinds of Preprocessing",
+            "Applying Data Transformations",
+            "Scaling Training and Test Data the Same Way",
+            "The Effect of Preprocessing on Supervised Learning"
+        ],
+        "Dimensionality Reduction, Feature Extraction, and Manifold Learning": [
+            "Principal Component Analysis (PCA)",
+            "Non-Negative Matrix Factorization (NMF)",
+            "Manifold Learning with t-SNE"
+        ],
+        "Clustering": [
+            "k-Means Clustering",
+            "Agglomerative Clustering",
+            "DBSCAN",
+            "Comparing and Evaluating Clustering Algorithms",
+            "Summary of Clustering Methods"
+        ],
+        "Summary and Outlook": []
+    },
+    "4. Representing Data and Engineering Features": {
+        "Categorical Variables": [],
+        "One-Hot-Encoding (Dummy Variables)": [],
+        "Numbers Can Encode Categoricals": [],
+        "Binning, Discretization, Linear Models, and Trees": [],
+        "Interactions and Polynomials": [],
+        "Univariate Nonlinear Transformations": [],
+        "Automatic Feature Selection": [
+            "Univariate Statistics",
+            "Model-Based Feature Selection",
+            "Iterative Feature Selection"
+        ],
+        "Utilizing Expert Knowledge": [],
+        "Summary and Outlook": []
+    },
+    "5. Model Evaluation and Improvement": {
+        "Cross-Validation": [
+            "Cross-Validation in scikit-learn",
+            "Benefits of Cross-Validation",
+            "Stratified k-Fold Cross-Validation and Other Strategies"
+        ],
+        "Grid Search": [
+            "Simple Grid Search",
+            "The Danger of Overfitting the Parameters and the Validation Set",
+            "Grid Search with Cross-Validation"
+        ],
+        "Evaluation Metrics and Scoring": [
+            "Keep the End Goal in Mind",
+            "Metrics for Binary Classification",
+            "Metrics for Multiclass Classification",
+            "Regression Metrics",
+            "Using Evaluation Metrics in Model Selection"
+        ],
+        "Summary and Outlook": []
+    },
+    "6. Algorithm Chains and Pipelines": {
+        "Parameter Selection with Preprocessing": [],
+        "Building Pipelines": [],
+        "Using Pipelines in Grid Searches": [],
+        "The General Pipeline Interface": [],
+        "Convenient Pipeline Creation with make_pipeline": [],
+        "Accessing Step Attributes": [],
+        "Accessing Attributes in a Grid-Searched Pipeline": [],
+        "Grid-Searching Preprocessing Steps and Model Parameters": [],
+        "Grid-Searching Which Model To Use": [],
+        "Summary and Outlook": []
+    },
+    "7. Working with Text Data": {
+        "Types of Data Represented as Strings": [],
+        "Example Application: Sentiment Analysis of Movie Reviews": [
+            "Representing Text Data as a Bag of Words",
+            "Applying Bag-of-Words to a Toy Dataset",
+            "Bag-of-Words for Movie Reviews",
+            "Stopwords",
+            "Rescaling the Data with tf–idf",
+            "Investigating Model Coefficients",
+            "Bag-of-Words with More Than One Word (n-Grams)",
+            "Advanced Tokenization, Stemming, and Lemmatization"
+        ],
+        "Topic Modeling and Document Clustering": [
+            "Latent Dirichlet Allocation"
+        ],
+        "Summary and Outlook": []
+    },
+    "8. Wrapping Up": {
+        "Approaching a Machine Learning Problem": [],
+        "Humans in the Loop": [],
+        "From Prototype to Production": [
+            "Testing Production Systems",
+            "Building Your Own Estimator"
+        ],
+        "Where to Go from Here": [
+            "Theory",
+            "Other Machine Learning Frameworks and Packages",
+            "Ranking, Recommender Systems, and Other Kinds of Learning",
+            "Probabilistic Modeling, Inference, and Probabilistic Programming",
+            "Neural Networks",
+            "Scaling to Larger Datasets",
+            "Honing Your Skills"
+        ],
+        "Conclusion": []
+    },
+    "Index": []
+}
 
-# Load the chunked content from a JSON file (replace this with the actual file path)
-with open(r"D:\webscrap\HierarchialQA\output_chunks\LogicInCS_chunks.json", "r", encoding="utf-8") as f:
+
+# Load chunks from a JSON file
+with open(r"/teamspace/studios/this_studio/nlp-book_chunks.json", "r", encoding="utf-8") as f:
     chunks = json.load(f)
 
-# Build the hierarchical tree
-hierarchical_tree = build_hierarchical_tree(logic_toc, chunks)
+# Build hierarchical tree
+hierarchical_tree = build_hierarchical_tree(nlp_toc, chunks)
 
-# Save the hierarchical tree to a JSON file
-output_path = "hierarchical_tree.json"
+# Save hierarchical tree to JSON file
+output_path = "/teamspace/studios/this_studio/hierarchical_tree_with_summaries.json"
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(hierarchical_tree.to_dict(), f, ensure_ascii=False, indent=4)
 
