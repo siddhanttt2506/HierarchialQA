@@ -421,16 +421,64 @@ ml_toc = {
     "Index": []
 }
 
+logic_toc = {
+    "Propositional Logic": {
+        "Declarative Sentences": [],
+        "Natural Deduction": ["Rules for Natural Deduction", "Derived Rules", "Natural Deduction in Summary", "Provable Equivalence", "Proof by Contradiction"],
+        "Semantics of Propositional Logic": ["Meaning of Logical Connectives", "Mathematical Induction", "Soundness of Propositional Logic", "Completeness of Propositional Logic"],
+        "Normal Forms": ["Semantic Equivalence, Satisfiability and Validity", "Conjunctive Normal Forms and Validity", "Horn Clauses and Satisfiability"],
+        "SAT Solvers": ["A Linear Solver", "A Cubic Solver"]
+    },
+    "Predicate Logic": {
+        "The Need for a Richer Language": [],
+        "Predicate Logic as a Formal Language": ["Terms", "Formulas", "Free and Bound Variables", "Substitution"],
+        "Proof Theory of Predicate Logic": ["Natural Deduction Rules", "Quantifier Equivalences"],
+        "Semantics of Predicate Logic": ["Models", "Semantic Entailment", "The Semantics of Equality"],
+        "Undecidability of Predicate Logic": [],
+        "Expressiveness of Predicate Logic": ["Existential Second-Order Logic", "Universal Second-Order Logic"],
+        "Micromodels of Software": ["State Machines", "Alma – Revisited", "A Software Micromodel"]
+    },
+    "Verification by Model Checking": {
+        "Motivation for Verification": [],
+        "Linear-Time Temporal Logic": ["Syntax of LTL", "Semantics of LTL", "Practical Patterns of Specifications", "Important Equivalences Between LTL Formulas", "Adequate Sets of Connectives for LTL"],
+        "Model Checking: Systems, Tools, Properties": ["Example: Mutual Exclusion", "The NuSMV Model Checker", "Running NuSMV", "Mutual Exclusion Revisited", "The Ferryman", "The Alternating Bit Protocol"],
+        "Branching-Time Logic": ["Syntax of CTL", "Semantics of CTL", "Practical Patterns of Specifications", "Important Equivalences Between CTL Formulas", "Adequate Sets of CTL Connectives"],
+        "CTL* and the Expressive Powers of LTL and CTL": ["Boolean Combinations of Temporal Formulas in CTL", "Past Operators in LTL"],
+        "Model-Checking Algorithms": ["The CTL Model-Checking Algorithm", "CTL Model Checking with Fairness", "The LTL Model-Checking Algorithm"],
+        "The Fixed-Point Characterisation of CTL": ["Monotone Functions", "The Correctness of SATEG", "The Correctness of SATEU"]
+    },
+    "Program Verification": {
+        "Why Should We Specify and Verify Code?": [],
+        "A Framework for Software Verification": ["A Core Programming Language", "Hoare Triples", "Partial and Total Correctness", "Program Variables and Logical Variables"],
+        "Proof Calculus for Partial Correctness": ["Proof Rules", "Proof Tableaux", "A Case Study: Minimal-Sum Section"],
+        "Proof Calculus for Total Correctness": [],
+        "Programming by Contract": []
+    },
+    "Modal Logics and Agents": {
+        "Modes of Truth": [],
+        "Basic Modal Logic": ["Syntax", "Semantics"],
+        "Logic Engineering": ["The Stock of Valid Formulas", "Important Properties of the Accessibility Relation", "Correspondence Theory", "Some Modal Logics"],
+        "Natural Deduction": [],
+        "Reasoning About Knowledge in a Multi-Agent System": ["Some Examples", "The Modal Logic KT45n", "Natural Deduction for KT45n", "Formalising the Examples"]
+    },
+    "Binary Decision Diagrams": {
+        "Representing Boolean Functions": ["Propositional Formulas and Truth Tables", "Binary Decision Diagrams", "Ordered BDDs"],
+        "Algorithms for Reduced OBDDs": ["The Algorithm Reduce", "The Algorithm Apply", "The Algorithm Restrict", "The Algorithm Exists"],
+        "Symbolic Model Checking": ["Representing Subsets of the Set of States", "Representing the Transition Relation", "Implementing the Functions pre∃ and pre∀", "Synthesising OBDDs"],
+        "A Relational Mu-Calculus": ["Syntax and Semantics", "Coding CTL Models and Specifications"]
+    }
+}
+
 
 # Load chunks from a JSON file
-with open(r"/teamspace/studios/this_studio/nlp-book_chunks.json", "r", encoding="utf-8") as f:
+with open(r"D:\webscrap\HierarchialQA\output_chunks\mlbasics_chunks.json", "r", encoding="utf-8") as f:
     chunks = json.load(f)
 
 # Build hierarchical tree
-hierarchical_tree = build_hierarchical_tree(nlp_toc, chunks)
+hierarchical_tree = build_hierarchical_tree(ml_toc, chunks)
 
 # Save hierarchical tree to JSON file
-output_path = "/teamspace/studios/this_studio/hierarchical_tree_with_summaries.json"
+output_path = "hierarchical_tree_with_summaries_ml.json"
 with open(output_path, "w", encoding="utf-8") as f:
     json.dump(hierarchical_tree.to_dict(), f, ensure_ascii=False, indent=4)
 
