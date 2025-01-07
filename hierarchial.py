@@ -267,12 +267,37 @@ nlp_toc = {
 
 ml_toc = {
     "1. Introduction": {
-        "Why Machine Learning?": [],
-        "Problems Machine Learning Can Solve": [],
-        "Knowing Your Task and Knowing Your Data": [],
-        "Why Python?": [],
-        "scikit-learn": [],
-        "Installing scikit-learn": [],
+        "Why Machine Learning?": [
+            "Introduction to Machine Learning",
+            "Importance of ML",
+            "ML Applications"
+        ],
+        "Problems Machine Learning Can Solve": [
+            "Classification Problems",
+            "Regression Problems",
+            "Clustering Problems",
+            "Common Use Cases"
+        ],
+        "Knowing Your Task and Knowing Your Data": [
+            "Task Definition",
+            "Data Understanding",
+            "Data Requirements"
+        ],
+        "Why Python?": [
+            "Python Features",
+            "Python Libraries",
+            "Python Community"
+        ],
+        "scikit-learn": [
+            "Introduction to scikit-learn",
+            "Key Features",
+            "Basic Usage"
+        ],
+        "Installing scikit-learn": [
+            "Installation Methods",
+            "Dependencies",
+            "Verification"
+        ],
         "Essential Libraries and Tools": [
             "Jupyter Notebook",
             "NumPy",
@@ -281,8 +306,16 @@ ml_toc = {
             "pandas",
             "mglearn"
         ],
-        "Python 2 Versus Python 3": [],
-        "Versions Used in this Book": [],
+        "Python 2 Versus Python 3": [
+            "Key Differences",
+            "Migration Considerations",
+            "Best Practices"
+        ],
+        "Versions Used in this Book": [
+            "Package Versions",
+            "Compatibility Notes",
+            "Version Management"
+        ],
         "A First Application: Classifying Iris Species": [
             "Meet the Data",
             "Measuring Success: Training and Testing Data",
@@ -291,31 +324,106 @@ ml_toc = {
             "Making Predictions",
             "Evaluating the Model"
         ],
-        "Summary and Outlook": []
+        "Summary and Outlook": [
+            "Chapter Review",
+            "Key Takeaways",
+            "Next Steps"
+        ]
     },
     "2. Supervised Learning": {
-        "Classification and Regression": [],
-        "Generalization, Overfitting, and Underfitting": [],
-        "Relation of Model Complexity to Dataset Size": [],
-        "Supervised Machine Learning Algorithms": [],
-        "Some Sample Datasets": [],
-        "k-Nearest Neighbors": [],
-        "Linear Models": [],
-        "Naive Bayes Classifiers": [],
-        "Decision Trees": [],
-        "Ensembles of Decision Trees": [],
-        "Kernelized Support Vector Machines": [],
-        "Neural Networks (Deep Learning)": [],
+        "Classification and Regression": [
+            "Understanding Classification",
+            "Understanding Regression",
+            "Comparing Approaches"
+        ],
+        "Generalization, Overfitting, and Underfitting": [
+            "Concept of Generalization",
+            "Overfitting Problems",
+            "Underfitting Problems",
+            "Finding the Balance"
+        ],
+        "Relation of Model Complexity to Dataset Size": [
+            "Dataset Size Impact",
+            "Model Complexity Considerations",
+            "Scaling Relationships"
+        ],
+        "Supervised Machine Learning Algorithms": [
+            "Overview of Algorithms",
+            "Algorithm Selection",
+            "Performance Comparison"
+        ],
+        "Some Sample Datasets": [
+            "Dataset Examples",
+            "Dataset Characteristics",
+            "Data Preparation"
+        ],
+        "k-Nearest Neighbors": [
+            "KNN Algorithm",
+            "KNN Parameters",
+            "KNN Applications",
+            "Implementation Details"
+        ],
+        "Linear Models": [
+            "Linear Regression",
+            "Logistic Regression",
+            "Linear Classification",
+            "Model Interpretation"
+        ],
+        "Naive Bayes Classifiers": [
+            "Naive Bayes Concept",
+            "Types of Naive Bayes",
+            "Applications",
+            "Implementation"
+        ],
+        "Decision Trees": [
+            "Tree Structure",
+            "Split Criteria",
+            "Tree Parameters",
+            "Pruning Techniques"
+        ],
+        "Ensembles of Decision Trees": [
+            "Random Forests",
+            "Gradient Boosting",
+            "Ensemble Methods",
+            "Performance Optimization"
+        ],
+        "Kernelized Support Vector Machines": [
+            "Kernel Concept",
+            "SVM Parameters",
+            "Kernel Selection",
+            "Implementation Details"
+        ],
+        "Neural Networks (Deep Learning)": [
+            "Neural Network Basics",
+            "Architectures",
+            "Training Process",
+            "Optimization Techniques"
+        ],
         "Uncertainty Estimates from Classifiers": [
             "The Decision Function",
             "Predicting Probabilities",
-            "Uncertainty in Multiclass Classification"
+            "Uncertainty in Multiclass Classification",
+            "Confidence Metrics"
         ],
-        "Summary and Outlook": []
+        "Summary and Outlook": [
+            "Chapter Summary",
+            "Key Learning Points",
+            "Future Directions"
+        ]
     },
     "3. Unsupervised Learning and Preprocessing": {
-        "Types of Unsupervised Learning": [],
-        "Challenges in Unsupervised Learning": [],
+        "Types of Unsupervised Learning": [
+            "Clustering Methods",
+            "Dimensionality Reduction",
+            "Density Estimation",
+            "Pattern Discovery"
+        ],
+        "Challenges in Unsupervised Learning": [
+            "Data Quality Issues",
+            "Parameter Selection",
+            "Evaluation Metrics",
+            "Validation Approaches"
+        ],
         "Preprocessing and Scaling": [
             "Different Kinds of Preprocessing",
             "Applying Data Transformations",
@@ -325,7 +433,8 @@ ml_toc = {
         "Dimensionality Reduction, Feature Extraction, and Manifold Learning": [
             "Principal Component Analysis (PCA)",
             "Non-Negative Matrix Factorization (NMF)",
-            "Manifold Learning with t-SNE"
+            "Manifold Learning with t-SNE",
+            "Comparison of Methods"
         ],
         "Clustering": [
             "k-Means Clustering",
@@ -334,22 +443,58 @@ ml_toc = {
             "Comparing and Evaluating Clustering Algorithms",
             "Summary of Clustering Methods"
         ],
-        "Summary and Outlook": []
+        "Summary and Outlook": [
+            "Chapter Review",
+            "Best Practices",
+            "Advanced Topics"
+        ]
     },
     "4. Representing Data and Engineering Features": {
-        "Categorical Variables": [],
-        "One-Hot-Encoding (Dummy Variables)": [],
-        "Numbers Can Encode Categoricals": [],
-        "Binning, Discretization, Linear Models, and Trees": [],
-        "Interactions and Polynomials": [],
-        "Univariate Nonlinear Transformations": [],
+        "Categorical Variables": [
+            "Types of Categories",
+            "Encoding Methods",
+            "Handling Missing Values"
+        ],
+        "One-Hot-Encoding (Dummy Variables)": [
+            "Encoding Process",
+            "Handling Missing Values",
+            "Implementation Details"
+        ],
+        "Numbers Can Encode Categoricals": [
+            "Ordinal Encoding",
+            "Label Encoding",
+            "Best Practices"
+        ],
+        "Binning, Discretization, Linear Models, and Trees": [
+            "Binning Methods",
+            "Discretization Techniques",
+            "Impact on Models"
+        ],
+        "Interactions and Polynomials": [
+            "Feature Interactions",
+            "Polynomial Features",
+            "Feature Selection"
+        ],
+        "Univariate Nonlinear Transformations": [
+            "Log Transform",
+            "Power Transform",
+            "Other Transformations"
+        ],
         "Automatic Feature Selection": [
             "Univariate Statistics",
             "Model-Based Feature Selection",
             "Iterative Feature Selection"
         ],
-        "Utilizing Expert Knowledge": [],
-        "Summary and Outlook": []
+        "Utilizing Expert Knowledge": [
+            "Domain Expertise",
+            "Feature Engineering",
+            "Best Practices"
+        ],
+        "Summary and Outlook": [
+            "Key Concepts",
+            "Advanced Topics",
+            "Future Directions"
+        ]
     },
     "5. Model Evaluation and Improvement": {
         "Cross-Validation": [
@@ -369,22 +514,70 @@ ml_toc = {
             "Regression Metrics",
             "Using Evaluation Metrics in Model Selection"
         ],
-        "Summary and Outlook": []
+        "Summary and Outlook": [
+            "Chapter Summary",
+            "Best Practices",
+            "Next Steps"
+        ]
     },
     "6. Algorithm Chains and Pipelines": {
-        "Parameter Selection with Preprocessing": [],
-        "Building Pipelines": [],
-        "Using Pipelines in Grid Searches": [],
-        "The General Pipeline Interface": [],
-        "Convenient Pipeline Creation with make_pipeline": [],
-        "Accessing Step Attributes": [],
-        "Accessing Attributes in a Grid-Searched Pipeline": [],
-        "Grid-Searching Preprocessing Steps and Model Parameters": [],
-        "Grid-Searching Which Model To Use": [],
-        "Summary and Outlook": []
+        "Parameter Selection with Preprocessing": [
+            "Parameter Types",
+            "Selection Methods",
+            "Optimization Strategies"
+        ],
+        "Building Pipelines": [
+            "Pipeline Components",
+            "Pipeline Construction",
+            "Error Handling"
+        ],
+        "Using Pipelines in Grid Searches": [
+            "Search Strategy",
+            "Parameter Grid",
+            "Optimization Methods"
+        ],
+        "The General Pipeline Interface": [
+            "Interface Components",
+            "Usage Patterns",
+            "Best Practices"
+        ],
+        "Convenient Pipeline Creation with make_pipeline": [
+            "Creation Methods",
+            "Pipeline Options",
+            "Common Patterns"
+        ],
+        "Accessing Step Attributes": [
+            "Attribute Types",
+            "Access Methods",
+            "Debugging Tips"
+        ],
+        "Accessing Attributes in a Grid-Searched Pipeline": [
+            "Search Results",
+            "Attribute Access",
+            "Result Analysis"
+        ],
+        "Grid-Searching Preprocessing Steps and Model Parameters": [
+            "Search Space",
+            "Optimization",
+            "Performance Tuning"
+        ],
+        "Grid-Searching Which Model To Use": [
+            "Model Selection",
+            "Comparison Metrics",
+            "Decision Criteria"
+        ],
+        "Summary and Outlook": [
+            "Key Learnings",
+            "Advanced Topics",
+            "Future Developments"
+        ]
     },
     "7. Working with Text Data": {
-        "Types of Data Represented as Strings": [],
+        "Types of Data Represented as Strings": [
+            "Text Types",
+            "String Representations",
+            "Processing Methods"
+        ],
         "Example Application: Sentiment Analysis of Movie Reviews": [
             "Representing Text Data as a Bag of Words",
             "Applying Bag-of-Words to a Toy Dataset",
@@ -396,16 +589,31 @@ ml_toc = {
             "Advanced Tokenization, Stemming, and Lemmatization"
         ],
         "Topic Modeling and Document Clustering": [
-            "Latent Dirichlet Allocation"
+            "Latent Dirichlet Allocation",
+            "Document Clustering",
+            "Evaluation Methods"
         ],
-        "Summary and Outlook": []
+        "Summary and Outlook": [
+            "Chapter Review",
+            "Advanced Concepts",
+            "Future Directions"
+        ]
     },
     "8. Wrapping Up": {
-        "Approaching a Machine Learning Problem": [],
-        "Humans in the Loop": [],
+        "Approaching a Machine Learning Problem": [
+            "Problem Definition",
+            "Solution Strategy",
+            "Implementation Steps"
+        ],
+        "Humans in the Loop": [
+            "Human Interaction",
+            "Feedback Integration",
+            "System Design"
+        ],
         "From Prototype to Production": [
             "Testing Production Systems",
-            "Building Your Own Estimator"
+            "Building Your Own Estimator",
+            "Deployment Strategies"
         ],
         "Where to Go from Here": [
             "Theory",
@@ -416,9 +624,12 @@ ml_toc = {
             "Scaling to Larger Datasets",
             "Honing Your Skills"
         ],
-        "Conclusion": []
-    },
-    "Index": []
+        "Conclusion": [
+            "Final Thoughts",
+            "Key Takeaways",
+            "Next Steps"
+        ]
+    }
 }
 
 logic_toc = {

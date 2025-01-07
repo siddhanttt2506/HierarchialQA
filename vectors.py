@@ -54,8 +54,8 @@ def encode_node(node, model):
     return encoded_node
 
 # Define input and output file paths using os.path.join
-input_file = os.path.join(BASE_DIR, "hierarchical_tree_with_summaries (1).json")
-output_file = os.path.join(BASE_DIR, "vectorized_hierarchical_tree(1).json")
+input_file = os.path.join(BASE_DIR, "D:\webscrap\HierarchialQA\hierarchia_tress_final_forgodsake\hierarchical_tree_with_summaries_nlp.json")
+output_file = os.path.join(BASE_DIR, "vectorized_hierarchical_tree_nlp.json")
 
 # Load the hierarchical tree JSON
 with open(input_file, 'r', encoding='utf-8') as f:
