@@ -1,3 +1,4 @@
 # Model caches
 /model_cache/
 /path_to_cache/
+.env
